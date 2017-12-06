@@ -1,0 +1,84 @@
+
+<!doctype html>
+<html class="no-js">
+<head lang="en">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link href="../css/mui.min.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="../css/app.css" />
+<link href="../css/mui.picker.css" rel="stylesheet" />
+<link href="../css/mui.poppicker.css" rel="stylesheet" />
+<link rel="stylesheet" href="../css/public.css">
+<link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../css/amazeui.min.css">
+<style type="text/css">
+	.zpzzqrs span{text-indent: 2em;display: block;}
+</style>
+
+<title>增票资质确认书</title>
+<script>
+		function close() {
+			api.closeWin();
+		}
+	</script>
+</head>
+<body class="bg-white">
+	<header class="mui-bar mui-bar-nav bg-f8f8f8 mheader" style="z-index: 1000;height: 46px;">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left c333" href="javascript:close();"></a>
+	    <div class="mui-title pright10">
+	        增票资质
+	    </div>
+	</header>
+	<div class="mui-content bg-f8f8f8" style="padding-bottom: 93px;">
+    <div class="am-padding lineheight">
+        <div class="zpzzqrs">
+            <h4 class="am-text-default am-text-center">申请开具增值税专用发票确认书</h4>
+            <span>根据国家税法及发票管理相关规定，任何单位和个人不得要求他人为自己开具与实际经营业务不符的增值税专用发票【包括并不限于</span>
+            （1）在没有货物采购或者没有接受应税劳务的情况下要求他人为自己开具增值税专用发票；<br>
+            （2）虽有货物采购或者接受应税劳务但要求他人为自己开具数据或金额与实际情况不符的增值税专用发票】，否则属于“虚开增值税专用发票”。<br>
+            <span>我已充分了解上述各项相关国家税法和发票管理规定，并确认仅就我司实际购买商品或服务索取发票。</span>
+            <span>如我司未按照国家相关规定申请或使用增值税专用发票，由我司自行承担相应法律后果。</span>
+        </div>
+    </div>
+</div>
+	<!--[if (gte IE 9)|!(IE)]><!-->
+	<script src="../script/jquery.min.js"></script>
+	<!--<![endif]-->
+
+	<!--[if lte IE 8 ]>
+	<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+	<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+	<script src="js/amazeui.ie8polyfill.min.js"></script>
+	<![endif]-->
+	<script src="web/js/common.js"></script>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script>
+			apiready=function(){
+				window.fixStatusBar = function(){
+					var statusBarAppearance = api.statusBarAppearance;
+						if(statusBarAppearance){
+							$('header').each(function(){
+								$api.fixStatusBar(this);
+
+							});
+							$('.scroll-wrapper').each(function(){
+								$api.fixStatusBar(this);
+								$(this).addClass("con-top3")
+							});
+						}else{
+							$('header').addClass('mheader');
+						}
+					 };
+				 window.fixStatusBar();
+			}
+	</script>
+</body>
+</html>

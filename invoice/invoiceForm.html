@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../css/app.css" />
+    <link href="../css/mui.picker.css" rel="stylesheet" />
+    <link href="../css/mui.poppicker.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/public.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <title>填写增票资质</title>
+</head>
+<body class="bg-f8f8f8 t14">
+<header class="mui-bar mui-bar-nav bg-f8f8f8 mheader" style="z-index: 1000;height: 46px;">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left c333" href="javascript:close();"></a>
+    <div class="mui-title pright10">
+        填写增票资质
+    </div>
+</header>
+<div class="mui-content bg-f8f8f8" style="padding-bottom: 93px;">
+    <div class="bg-white mbottom10 p10 pbottom0">
+        <div class="border-bottom">
+            <div class="fqxj-list3">
+                <span class="fqxj-list3-t">注册公司名称</span>
+                <input type="hidden" id="id">
+                <div class="fqxj-list3-cx">
+                    <input type="text" placeholder="请输入注册公司名称"  id="companyName">
+                </div>
+            </div>
+        </div>
+        <div class="border-bottom">
+            <div class="fqxj-list3">
+                <span class="fqxj-list3-t">法人姓名</span>
+                <div class="fqxj-list3-cx">
+                    <input type="text" placeholder="请输入法人姓名" id="userName">
+                </div>
+            </div>
+        </div>
+        <div class="border-bottom">
+            <div class="fqxj-list3">
+                <span class="fqxj-list3-t">纳税人识别码</span>
+                <div class="fqxj-list3-cx">
+                    <input type="text" placeholder="请输入纳税人识别码" id="invoiceCode">
+                </div>
+            </div>
+        </div>
+        <div class="border-bottom">
+            <div class="fqxj-list3">
+                <span class="fqxj-list3-t">注册地址</span>
+                <div class="fqxj-list3-cx">
+                    <input type="text" placeholder="请输入注册地址" id="address">
+                </div>
+            </div>
+        </div>
+        <div class="border-bottom">
+            <div class="fqxj-list3">
+                <span class="fqxj-list3-t">法人联系电话</span>
+                <div class="fqxj-list3-cx">
+                    <input type="text" placeholder="请输入法人联系电话" id="phone">
+                </div>
+            </div>
+        </div>
+        <div class="border-bottom">
+            <div class="fqxj-list3">
+                <span class="fqxj-list3-t">注册银行名称</span>
+                <div class="fqxj-list3-cx">
+                    <input type="text" placeholder="如建设银行某某支行"  id="bank">
+                </div>
+            </div>
+        </div>
+        <div class="border-bottom">
+            <div class="fqxj-list3">
+                <span class="fqxj-list3-t">注册银行账号</span>
+                <div class="fqxj-list3-cx">
+                    <input type="text" placeholder="请输入对公账户的银行卡号"  id="bankNo">
+                </div>
+            </div>
+        </div>
+    </div>
+    <span class="orange pleft10">所有信息均为必填</span>
+    <div class="zpzz-checkbox">
+        <div class="mui-input-row mui-checkbox mui-block sc-truncate">
+            <label class="">
+                <input class="mtop3" type="checkbox" name="checkbox"  id="check">
+                我已阅读并接受<a href="javascript:showPublic()">《增票资质确认书》</a>
+            </label>
+        </div>
+    </div>
+
+</div>
+<div class="mfooter">
+    <a class="mui-block" href="javascript:dosubmit();">提交</a>
+</div>
+
+<script src="../script/jquery.min.js"></script>
+<script src="../script/common.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script>
+apiready=function(){
+	window.fixStatusBar = function(){
+		var statusBarAppearance = api.statusBarAppearance;
+			if(statusBarAppearance){
+				$('header').each(function(){
+					$api.fixStatusBar(this);
+
+				});
+				$('.scroll-wrapper').each(function(){
+					$api.fixStatusBar(this);
+					$(this).addClass("con-top3")
+				});
+			}else{
+				$('header').addClass('mheader');
+			}
+		 };
+	 window.fixStatusBar();
+	 init();
+}
+
+function init(){
+	var url = "bi/InvoiceOrgreceiveAction/getInvoiceInfoNew";
+	var param = {
+			"method" : "post",
+			"dataType" : "json",
+			"headers": {"Content-Type":"application/json"}
+	};
+	ajax(url, param ,null, null, function(data){
+		if(data.data!=null){
+			$("#id").val(data.data["id"]);
+			$("#companyName").val(data.data["companyName"]);
+			$("#invoiceCode").val(data.data["invoiceCode"]);
+			$("#address").val(data.data["address"]);
+			$("#phone").val(data.data["phone"]);
+			$("#bank").val(data.data["bank"]);
+			$("#bankNo").val(data.data["bankNo"]);
+			$("#userName").val(data.data["userName"]);
+      $("#check").attr("checked","true");
+		}
+	});
+}
+
+function dosubmit(){
+	if(!$("#check").is(':checked')){
+		msg = "请勾选同意《增票资质确认书》选项";
+		api.toast({msg:msg});
+		return;
+	}
+	var companyName = $("#companyName").val();
+	if (companyName==null || companyName=="") {
+		msg = "请输入公司全称";
+		api.toast({msg:msg});
+		return;
+	};
+	var userName=$("#userName").val();
+	if (userName==null || userName=="") {
+		msg = "请输入法人姓名";
+		api.toast({msg:msg});
+		return;
+	};
+	var invoiceCode = $("#invoiceCode").val();
+	if (invoiceCode==null || invoiceCode=="") {
+		msg = "请输入纳税识别码";
+		api.toast({msg:msg});
+		return;
+	};
+	var address = $("#address").val();
+	if (address==null || address=="") {
+		msg = "请输入注册地址";
+		api.toast({msg:msg});
+		return;
+	};
+	var phone = $("#phone").val();
+	if (phone==null || phone=="") {
+		msg = "请输入法人联系电话";
+		api.toast({msg:msg});
+		return;
+	};
+	if(!checkMobileNo(phone)){
+		msg = "请输入正确的法人联系电话 例如：13800000000";
+		api.toast({msg:msg});
+		return;
+	}
+	var bank = $("#bank").val();
+	if (bank==null || bank=="") {
+		msg = "请输入注册银行名称";
+		api.toast({msg:msg});
+		return;
+	};
+	var bankNo = $("#bankNo").val();
+	if (bankNo==null || bankNo=="") {
+		msg = "请输入公账户的银行卡号";
+		api.toast({msg:msg});
+		return;
+	};
+	var InvoiceOrgreceive = new Object();
+	InvoiceOrgreceive.id=$("#id").val();
+	InvoiceOrgreceive.companyName=companyName;
+	InvoiceOrgreceive.invoiceCode=invoiceCode;
+	InvoiceOrgreceive.address=address;
+	InvoiceOrgreceive.phone=phone;
+	InvoiceOrgreceive.bank=bank;
+	InvoiceOrgreceive.bankNo=bankNo;
+	InvoiceOrgreceive.userName=userName;
+
+	var url = "bi/InvoiceOrgreceiveAction/getInvoiceInfoNew";
+	var param = {
+			"method" : "post",
+			"dataType" : "json",
+			"headers": {"Content-Type":"application/json"}
+	};
+
+	ajax(url, param, null, null, function(data){alert(" data.data.id:"+ data.data.id);
+		if(data.data!=null && data.data.id != null){
+		msg = "纳税识别码有重复，请核对";
+		api.toast({msg:msg});
+		return;
+
+		}else{
+			var url = "bi/InvoiceOrgreceiveAction/doSave";
+			var param = {
+					"method" : "post",
+					"dataType" : "json",
+					"data" : {"body" : JSON.stringify(InvoiceOrgreceive)},
+					"headers": {"Content-Type":"application/json"}
+			};
+			ajax(url, param, null, null, function(data){
+				 api.toast({msg:"操作成功"});
+				 var jsFun = "initInfo()";
+					api.execScript({
+						name: "invoiceIndex",
+						script: jsFun
+					});
+				 api.closeWin({name: "invoiceForm"});
+
+			});
+		}
+	});
+}
+
+function showPublic() {
+	api.openWin({
+	    name: "public",
+	    url: "../invoice/public.html",
+
+	});
+}
+
+function close(){
+  api.closeWin();
+}
+</script>
+</body>
+</html>
